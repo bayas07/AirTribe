@@ -1,0 +1,32 @@
+[
+  {
+    "name": "bayas",
+    "email": "bayas123@test.com",
+    "password": "$2b$10$0f4w5UuEomLlzFLT1qIhyO2aoRwHWIw41Nfr2WqiR1cs/UCTGx9la",
+    "preferences": ["sports", "science"]
+  },
+  {
+    "name": "bayas",
+    "email": "bayas1234@test.com",
+    "password": "$2b$10$ogdIyoKulLJhJxB.8bLVyuW9lJnsRpaHpFmzIPVCSuoMThxio/8hG",
+    "preferences": ["entertainment", "sports", "science"]
+  },
+  {
+    "name": "bayas",
+    "email": "bayas12345@test.com",
+    "password": "$2b$10$37VQFc/lvIRVxszxUQGrduragSAbcOtZbZeIaVuhsFSLZXKGTKZ3K",
+    "preferences": []
+  },
+  {
+    "name": "bayas",
+    "email": "bayas1@test.com",
+    "password": "$2b$10$1P1LdIHUw4whw3PXCk/.hevXb5GzraLOpufUOHrqMp3Csa2OJ9XL2",
+    "preferences": []
+  },
+  {
+    "name": "bayas",
+    "email": "bayas12@test.com",
+    "password": "$2b$10$xoDV/NpvwDxEeXaN9SQiHO9WtPbKp6AzSTbYjQWXnXvo1KKX.yLd.",
+    "preferences": ["general", "world"]
+  }
+]
