@@ -2,13 +2,14 @@ const moviesRoutes = require("express").Router();
 const bodyParser = require("body-parser");
 const { sequalize } = require("../config/mysql");
 const { DataTypes } = require("sequelize");
+const { getMoviesByDateQuery, getAllMoviesQuery } = require("../utills/helpers");
 
 moviesRoutes.use(bodyParser.urlencoded({ extended: false }));
 moviesRoutes.use(bodyParser.json());
 
 const theaterList = sequalize.define("Theaters", {
   TheaterId: DataTypes.INTEGER,
-  Name: DataTypes.STRING,
+  TheaterName: DataTypes.STRING,
   City: DataTypes.STRING,
 });
 
@@ -34,15 +35,8 @@ moviesRoutes.get("/:city/:theatreId", async (req, res) => {
   const city = req.params.city;
   const theatreId = req.params.theatreId;
 
-  const [results] = await sequalize.query(`
-  SELECT TI.Id, TI.Screen, TI.AVType, TI.SubtitlesLanguage, TI.BookingStatus, TI.ShowTiming, TI.ShowDate, M.MovieName, M.MovieLanguage, M.MovieDimension, M.MovieCertification, TH.City, TH.TheaterName
-  FROM myData.TheatersInfo TI
-  INNER JOIN myData.Movies M
-  ON TI.MovieId = M.MovieId
-  INNER JOIN myData.Theaters TH
-  ON TI.TheaterId = TH.TheaterId
-  WHERE TI.TheaterId = ${theatreId} AND TH.City = '${city}'
-`);
+  const query = getAllMoviesQuery(theatreId, city);
+  const [results] = await sequalize.query(query);
 
   if (results && results.length > 0) {
     res.status(200).json(results);
@@ -56,16 +50,9 @@ moviesRoutes.get("/:city/:theatreId/:date", async (req, res) => {
   const city = req.params.city;
   const theatreId = req.params.theatreId;
   const date = req.params.date; // 20220506 - YYYY-MM-DD
-
-  const [results] = await sequalize.query(`
-  SELECT TI.Id, TI.Screen, TI.AVType, TI.SubtitlesLanguage, TI.BookingStatus, TI.ShowTiming, TI.ShowDate, M.MovieName, M.MovieLanguage, M.MovieDimension, M.MovieCertification, TH.City, TH.TheaterName
-  FROM myData.TheatersInfo TI
-  INNER JOIN myData.Movies M
-  ON TI.MovieId = M.MovieId
-  INNER JOIN myData.Theaters TH
-  ON TI.TheaterId = TH.TheaterId
-  WHERE TI.TheaterId = ${theatreId} AND TH.City = '${city}' AND TI.ShowDate = '${date}'
-`);
+  
+  const query = getMoviesByDateQuery(theatreId, city, date);
+  const [results] = await sequalize.query(query);
 
   if (results && results.length > 0) {
     res.status(200).json(results);
