@@ -4,7 +4,6 @@ const routes = require("express").Router();
 const cors = require("cors");
 const moviesRoutes = require("./routes/movies");
 const { connectToDB } = require("./config/mysql");
-require("dotenv").config();
 
 const PORT = 3003;
 
